@@ -130,4 +130,5 @@ sudo ./nr-uesoftmodem -C 3748800000 -r 106 --numerology 1 --band 78 --ssb 516 -E
 
 ### Results
 
-![alt text](image/image-1.png)
+![Uploading image.png…]()
+
