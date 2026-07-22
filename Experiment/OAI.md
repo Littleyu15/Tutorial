@@ -79,7 +79,7 @@ file path: `/openairinterface5g/targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 > ```
 
 ### Start MTK UE
-[Tutorial](../MTK_UE.md)
+[Tutorial](../MTK_UE_Tutorial.md)
 
 
 ### Start Attacker
