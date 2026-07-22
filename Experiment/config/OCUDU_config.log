@@ -1,0 +1,54 @@
+# SPDX-FileCopyrightText: Copyright (C) 2021-2026 Software Radio Systems Limited
+# SPDX-License-Identifier: BSD-3-Clause-Open-MPI
+
+
+# This example configuration outlines how to configure the OCUDU gNB to create a single TDD cell
+# transmitting in band 78, with 20 MHz bandwidth and 30 kHz sub-carrier-spacing. A USRP B200 is configured
+# as the RF frontend using split 8. Note in this example an external clock source is not used, so the sync
+# is not defined and the default is used.
+
+cu_cp:
+  amf:
+    no_core: true                          # Optional BOOLEAN. Setting to true allows the gNB to run without a core. Supported: [0, 1].
+    addr: 192.168.8.108       # from OAI: amf_ip_address
+    port: 38412
+    bind_addr: 192.168.8.59  # from OAI: GNB_IPV4_ADDRESS_FOR_NG_AMF
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: "00101"
+            tai_slice_support_list:
+              - sst: 1
+
+ru_sdr:
+  device_driver: uhd
+  device_args: type=b200,num_recv_frames=64,num_send_frames=64
+  srate: 23.04 #46.08 # 23.04 
+  otw_format: sc12
+  tx_gain: 80
+  rx_gain: 76
+
+cell_cfg:
+  dl_arfcn: 641280
+  band: 78
+  channel_bandwidth_MHz: 20 # 40 #20
+  common_scs: 30
+  plmn: "00101"
+  tac: 7
+  pci: 1
+
+  prach:
+    prach_config_index: 159            # Optional UINT. Sets the PRACH configuration index. If not set, the value is derived, so that the PRACH fits in an UL slot. Supported: [0 - 255].
+    total_nof_ra_preambles: 64                 # Optional TEXT. Sets the number of different PRACH preambles. Supported: [1 - 64].
+    zero_correlation_zone: 0                # Optional UINT (0). Sets the Zero Correlation Zone, which determines the size of the cyclic shift and the number of preamble sequences which can be generated from each Root Sequence Index. Supported: [0 - 15].
+    # ra_resp_window: 20                         # Optional UINT. Sets the RA-response window length in number of slots. Supported: {1, 2, 4, 8, 10, 20, 40, 80}.
+
+log:
+  filename: /tmp/gnb.log
+  all_level: warning
+
+pcap:
+  mac_enable: false
+  mac_filename: /tmp/gnb_mac.pcap
+  ngap_enable: false
+  ngap_filename: /tmp/gnb_ngap.pcap
